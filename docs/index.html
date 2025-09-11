@@ -1,11 +1,745 @@
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Portfólio - RAFAEL VITOR DE MEDEIROS COSTA</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu Portfólio Profissional</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/responsive.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Estilos para os modais dos projetos */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: white;
+      max-width: 900px;
+      margin: 40px auto;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-header {
+      padding: 20px 30px;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      font-size: 1.8rem;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .close-modal:hover {
+      transform: rotate(90deg);
+    }
+
+    .modal-body {
+      padding: 30px;
+    }
+
+    .modal-image {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      max-height: 400px;
+      object-fit: contain;
+    }
+
+    .modal-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .modal-description {
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .modal-features {
+      margin-bottom: 20px;
+    }
+
+    .modal-features h4,
+    .modal-tech h4 {
+      margin-bottom: 10px;
+      color: var(--dark);
+      font-size: 1.2rem;
+    }
+
+    .modal-features ul {
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+
+    .modal-features li {
+      margin-bottom: 8px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Ajustes para os botões dos projetos */
+    .project-links a {
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .modal-details {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Bem vindo ao Portfólio de RAFAEL VITOR DE MEDEIROS COSTA</h1>
+  <!-- Loading Screen -->
+  <div class="loading-screen">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Header e Navegação -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <span>&lt;Rafa<span class="accent">Portfolio</span>/&gt;</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#home" class="active">Início</a></li>
+          <li><a href="#about">Sobre</a></li>
+          <li><a href="#skills">Habilidades</a></li>
+          <li><a href="#projects">Projetos</a></li>
+          <li><a href="#contact">Contato</a></li>
+        </ul>
+        <div class="burger">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h4 class="greeting">Olá, eu sou</h4>
+          <h1 class="hero-title">
+            Rafael <span class="accent"> Medeiros </span>
+          </h1>
+          <h3 class="hero-subtitle">
+            Desenvolvedor <span class="typed-text"></span><span class="cursor">&nbsp;</span>
+          </h3>
+          <p class="hero-description">
+            Um biólogo amante de borboletas, perdido no mundo da programação.
+          </p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">Ver Projetos</a>
+            <a href="#contact" class="btn btn-secondary">Entrar em Contato</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="image-wrapper">
+            <img src="./assets/images/perfil-um.jpeg" alt="Sua Foto" class="profile-img" />
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">Sobre <span class="accent">Mim</span></h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>
+            Sou formado em Biologia pela UNIVAP e especialista em Análises
+            Clínicas pelo IPESSP, com experiência em borboletários, centros de
+            reabilitação de animais silvestres e laboratórios clínicos,
+            incluindo a DASA.
+          </p>
+          <p>
+            Atualmente, migrei para tecnologia e desenvolvimento de software,
+            estudando JavaScript, TypeScript, React, Node.js, HTML, CSS,
+            PostgreSQL e Figma. Trabalho como estagiário em Desenvolvimento de
+            Software, motivado pela curiosidade, resolução de problemas e
+            criação de soluções significativas.
+          </p>
+          <div class="about-details">
+            <div class="detail-item">
+              <span class="detail-label">Nome:</span>
+              <span class="detail-value">Rafael Vitor de Medeiros Costa</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Email:</span>
+              <span class="detail-value">rvmcosta2@gmail.com</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Idade:</span>
+              <span class="detail-value">26 anos</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Cidade:</span>
+              <span class="detail-value">São José dos Campos, Brasil</span>
+            </div>
+          </div>
+          <a href="#" class="btn btn-primary" style="margin-top: 20px" id="download-cv-btn">
+            <i class="fas fa-download"></i> Download CV
+          </a>
+        </div>
+        <div class="about-image">
+          <div class="image-container">
+            <img src="./assets/images/perfil-dois.jpg" alt="Sua Foto" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal de Download do CV -->
+  <div id="modal-cv" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <h2>Download do Currículo</h2>
+        <button class="close-modal" onclick="closeModal('cv')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Escolha o formato desejado para download:</p>
+        <div class="modal-actions">
+          <a href="./assets/documents/Rafael-Medeiros-CV.pdf" class="action-btn btn-primary" download>
+            <i class="fas fa-file-pdf"></i> Baixar PDF
+          </a>
+          <a href="./assets/documents/Rafael-Medeiros-CV.docx" class="action-btn btn-secondary" download>
+            <i class="fas fa-file-word"></i> Baixar DOCX
+          </a>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.9rem; color: var(--gray);">
+          <i class="fas fa-info-circle"></i> Caso tenha problemas com o download, entre em contato pelo email: rvmcosta2@gmail.com
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Habilidades -->
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title">
+        Minhas <span class="accent">Habilidades</span>
+      </h2>
+      <div class="skills-container">
+        <div class="skill-category">
+          <h3>Dev</h3>
+          <div class="skills-grid">
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">HTML/CSS</span>
+                <span class="skill-percentage">80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="80%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-percentage">60%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="60%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">TypeScript</span>
+                <span class="skill-percentage">45%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="45%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>Idioma</h3>
+          <div class="skills-grid">
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Português</span>
+                <span class="skill-percentage">100%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="100%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Inglês</span>
+                <span class="skill-percentage">80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="80%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-info">
+                <span class="skill-name">Espanhol</span>
+                <span class="skill-percentage">50%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="50%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projetos -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title">Meus <span class="accent">Projetos</span></h2>
+      <div class="projects-filter">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="frontend">ABP</button>
+        <button class="filter-btn" data-filter="backend">Educacional</button>
+        <button class="filter-btn" data-filter="fullstack">Pessoal</button>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card" data-category="frontend">
+          <div class="project-image">
+            <img src="./assets/images/abp-1.png" alt="Projeto ABP" />
+            <div class="project-overlay">
+              <div class="project-links">
+                <a onclick="openModal('project1')"><i class="fas fa-eye"></i></a>
+                <a onclick="openProjectLink('https://github.com/prjDevflow/prj_1sem_client')"><i
+                    class="fas fa-code"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>ABP 1º Semestre</h3>
+            <p>Website responsivo sobre consulta de horário de aula.</p>
+            <div class="project-tags">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+              <span>SQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" data-category="backend">
+          <div class="project-image">
+            <img src="./assets/images/figma-1.png" alt="Projeto Figma" />
+            <div class="project-overlay">
+              <div class="project-links">
+                <a onclick="openModal('project2')"><i class="fas fa-eye"></i></a>
+                <a onclick="openProjectLink('https://www.figma.com/proto/lp0u3x4BBVjnazWIMnSGyf/Untitled?node-id=2-2&starting-point-node-id=2%3A2')"><i class="fas fa-code"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Figma</h3>
+            <p>
+              Texto de base para alterar posteriormente, algo sobre Figma.
+            </p>
+            <div class="project-tags">
+              <span>Figma</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" data-category="fullstack">
+          <div class="project-image">
+            <img src="./assets/images/jogoDaVelha.png" alt="Jogo da Velha" />
+            <div class="project-overlay">
+              <div class="project-links">
+                <a onclick="openModal('project3')"><i class="fas fa-eye"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Jogo da Velha</h3>
+            <p>
+              Um projeto em typescript pessoal para estudar desenvolvimento de
+              jogo.
+            </p>
+            <div class="project-tags">
+              <span>React</span>
+              <span>Typescript</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal para o Projeto 1 -->
+  <div id="modal-project1" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>ABP 1º Semestre</h2>
+        <button class="close-modal" onclick="closeModal('project1')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img src="./assets/images/abp-1.png" alt="ABP Website" class="modal-image">
+
+        <div class="modal-features">
+          <h4>Sobre o projeto</h4>
+          <ul>
+            <p>
+              Website responsivo desenvolvido para consulta de horário de aula dos cursos da Fatec - Jacarei.
+              O sistema permite que os alunos visualizem suas grades horárias de forma intuitiva e responsiva.
+            </p>
+          </ul>
+        </div>
+
+        <div class="modal-features">
+          <h4>Minha responsabilidade</h4>
+          <ul>
+            <p>
+              No projeto do ABP, atuei principalmente na área
+              de design e front-end. Fui responsável pela criação do protótipo inicial no Figma, definindo a identidade
+              visual e garantindo uma experiência intuitiva para os usuários. Além disso, revisei e ajustei a estética
+              das primeiras páginas desenvolvidas, aprimorando a consistência visual do sistema. Também realizei
+              modificações no mapa do site e assumi a programação da seção da secretaria, contribuindo para o
+              funcionamento das funcionalidades voltadas a esse setor. Já na fase final do projeto, desempenhei
+              atividades adicionais com JavaScript, apoiando na implementação de interações dinâmicas e melhorias na
+              usabilidade.
+            </p>
+          </ul>
+        </div>
+
+        <div class="modal-features">
+          <h4>Funcionalidades</h4>
+          <ul>
+            <li>Design responsivo para mobile e desktop</li>
+            <li>Consulta de horários por turma ou professor</li>
+            <li>Interface intuitiva e moderna</li>
+            <li>Sistema de busca integrado</li>
+          </ul>
+        </div>
+
+        <div class="modal-actions">
+          <a href="https://prj-1sem-client.vercel.app/" class="action-btn btn-primary" target="_blank">
+            <i class="fas fa-external-link-alt"></i> Ver projeto online
+          </a>
+          <a href="https://github.com/prjDevflow/prj_1sem_client" class="action-btn btn-secondary" target="_blank">
+            <i class="fab fa-github"></i> Ver código fonte
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para o Projeto 2 -->
+  <div id="modal-project2" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Projeto Figma</h2>
+        <button class="close-modal" onclick="closeModal('project2')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img src="./assets/images/figma-1.png" alt="Figma Design" class="modal-image">
+
+        <div class="modal-features">
+          <div>
+            <h4>Sobre o projeto</h4>
+            <p class="modal-description">
+              Design system completo e protótipos interativos desenvolvidos no Figma.
+              Inclui componentes reutilizáveis, guia de estilo e fluxos de usuário.
+            </p>
+          </div>
+        </div>
+
+        <div class="modal-features">
+          <h4>Características</h4>
+          <ul>
+            <li>Design system com componentes reutilizáveis</li>
+            <li>Protótipos interativos e animações</li>
+            <li>Guia de estilo completo (cores, tipografia, etc.)</li>
+            <li>Documentação para desenvolvedores</li>
+          </ul>
+        </div>
+
+        <div class="modal-actions">
+          <a href="https://www.figma.com/proto/lp0u3x4BBVjnazWIMnSGyf/Untitled?node-id=2-2&starting-point-node-id=2%3A2" class="action-btn btn-primary" target="_blank">
+            <i class="fab fa-figma"></i> Ver no Figma
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para o Projeto 3 -->
+  <div id="modal-project3" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Jogo da Velha</h2>
+        <button class="close-modal" onclick="closeModal('project3')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img src="./assets/images/jogoDaVelha.png" alt="Jogo da Velha" class="modal-image">
+
+        <div class="modal-features">
+          <div>
+            <h4>Sobre o projeto</h4>
+            <p class="modal-description">
+              Jogo da velha desenvolvido com TypeScript e React.
+              Inclui modos singleplayer contra IA e multiplayer local.
+            </p>
+          </div>
+        </div>
+
+        <div class="modal-features">
+          <h4>Funcionalidades</h4>
+          <ul>
+            <li>Interface moderna e responsiva</li>
+            <li>IA para jogo singleplayer</li>
+            <li>Modo multiplayer local</li>
+            <li>Contador de vitórias</li>
+            <li>Animações suaves</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contato -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">
+        Entre em <span class="accent">Contato</span>
+      </h2>
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Email</h3>
+              <p>rvmcosta2@gmail.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Telefone</h3>
+              <p>(12) 99230-0945</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h3>Localização</h3>
+              <p>São José dos Campos, SP</p>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Nome</label>
+              <input type="text" id="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Assunto</label>
+            <input type="text" id="subject" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Mensagem</label>
+            <textarea id="message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> Enviar Mensagem
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <div class="logo">
+            <span>&lt;Rafa<span class="accent">Portfolio</span>/&gt;</span>
+          </div>
+          <p>
+            Um biólogo amante de borboletas, perdido no mundo da programação.
+          </p>
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/Raflael"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/rafael-medeiros-aa60241a7"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.instagram.com/_rafaelvmc"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          &copy; 2025 Rafael Vitor de Medeiros Costa. Todos os direitos
+          reservados.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="scripts/main.js"></script>
+  <script>
+    // Função para abrir o modal
+    function openModal(modalId) {
+      document.getElementById(`modal-${modalId}`).style.display = 'block';
+      document.body.style.overflow = 'hidden'; // Impede scroll da página principal
+    }
+
+    // Função para fechar o modal
+    function closeModal(modalId) {
+      document.getElementById(`modal-${modalId}`).style.display = 'none';
+      document.body.style.overflow = 'auto'; // Restaura scroll
+    }
+
+    // Função para abrir link externo (para o botão de código)
+    function openProjectLink(url) {
+      window.open(url, '_blank');
+    }
+
+    // Fechar modal clicando fora do conteúdo
+    window.onclick = function (event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Fechar modal com a tecla ESC
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        const modals = document.getElementsByClassName('modal');
+        for (let modal of modals) {
+          if (modal.style.display === 'block') {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+          }
+        }
+      }
+    });
+
+    // Adicionar evento de clique para o botão de download do CV
+    document.addEventListener('DOMContentLoaded', function() {
+      const downloadCvBtn = document.getElementById('download-cv-btn');
+      
+      if (downloadCvBtn) {
+        downloadCvBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          openModal('cv');
+        });
+      }
+    });
+  </script>
 </body>
+
 </html>
