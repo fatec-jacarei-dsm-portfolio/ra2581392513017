@@ -23,6 +23,7 @@
       z-index: 1000;
       overflow-y: auto;
       padding: 20px;
+      backdrop-filter: blur(5px); /* Efeito de blur no fundo */
     }
 
     .modal-content {
@@ -33,6 +34,7 @@
       overflow: hidden;
       position: relative;
       animation: modalFadeIn 0.3s ease;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
     @keyframes modalFadeIn {
@@ -64,13 +66,21 @@
       background: none;
       border: none;
       color: white;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       cursor: pointer;
       transition: transform 0.3s ease;
+      padding: 5px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .close-modal:hover {
       transform: rotate(90deg);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .modal-body {
@@ -162,6 +172,11 @@
     /* Ajustes para os botões dos projetos */
     .project-links a {
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .project-links a:hover {
+      transform: translateY(-3px);
     }
 
     @media (max-width: 768px) {
@@ -171,6 +186,41 @@
 
       .modal-actions {
         flex-direction: column;
+      }
+      
+      .modal-content {
+        margin: 20px auto;
+        border-radius: 10px;
+      }
+      
+      .modal-header {
+        padding: 15px 20px;
+      }
+      
+      .modal-header h2 {
+        font-size: 1.4rem;
+      }
+      
+      .modal-body {
+        padding: 20px;
+      }
+      
+      .modal-details {
+        gap: 20px;
+      }
+      
+      .action-btn {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .modal {
+        padding: 10px;
+      }
+      
+      .modal-content {
+        margin: 10px auto;
       }
     }
   </style>
@@ -227,7 +277,7 @@
         </div>
         <div class="hero-image">
           <div class="image-wrapper">
-            <img src="./assets/images/perfil-um.jpeg" alt="Sua Foto" class="profile-img" />
+            <img src="./assets/images/perfil-um.jpeg" alt="Sua Foto" class="profile-img" loading="lazy" />
             <div class="floating-element"></div>
             <div class="floating-element"></div>
             <div class="floating-element"></div>
@@ -280,7 +330,7 @@
         </div>
         <div class="about-image">
           <div class="image-container">
-            <img src="./assets/images/perfil-dois.jpg" alt="Sua Foto" />
+            <img src="./assets/images/perfil-dois.jpg" alt="Sua Foto" loading="lazy" />
           </div>
         </div>
       </div>
@@ -288,11 +338,11 @@
   </section>
 
   <!-- Modal de Download do CV -->
-  <div id="modal-cv" class="modal">
+  <div id="modal-cv" class="modal" role="dialog" aria-labelledby="modal-title-cv" aria-modal="true">
     <div class="modal-content" style="max-width: 600px;">
       <div class="modal-header">
-        <h2>Download do Currículo</h2>
-        <button class="close-modal" onclick="closeModal('cv')">&times;</button>
+        <h2 id="modal-title-cv">Download do Currículo</h2>
+        <button class="close-modal" onclick="closeModal('cv')" aria-label="Fechar modal">&times;</button>
       </div>
       <div class="modal-body">
         <p>Escolha o formato desejado para download:</p>
@@ -400,11 +450,11 @@
       <div class="projects-grid">
         <div class="project-card" data-category="frontend">
           <div class="project-image">
-            <img src="./assets/images/abp-1.png" alt="Projeto ABP" />
+            <img src="./assets/images/abp-1.png" alt="Projeto ABP" loading="lazy" />
             <div class="project-overlay">
               <div class="project-links">
-                <a onclick="openModal('project1')"><i class="fas fa-eye"></i></a>
-                <a onclick="openProjectLink('https://github.com/prjDevflow/prj_1sem_client')"><i
+                <a onclick="openModal('project1')" aria-label="Ver detalhes do projeto"><i class="fas fa-eye"></i></a>
+                <a onclick="openProjectLink('https://github.com/prjDevflow/prj_1sem_client')" aria-label="Ver código fonte"><i
                     class="fas fa-code"></i></a>
               </div>
             </div>
@@ -421,13 +471,36 @@
           </div>
         </div>
 
-        <div class="project-card" data-category="backend">
+        <div class="project-card" data-category="frontend">
           <div class="project-image">
-            <img src="./assets/images/figma-1.png" alt="Projeto Figma" />
+            <img src="./assets/images/abp-2.png" alt="Projeto ABP" loading="lazy" />
             <div class="project-overlay">
               <div class="project-links">
-                <a onclick="openModal('project2')"><i class="fas fa-eye"></i></a>
-                <a onclick="openProjectLink('https://www.figma.com/proto/lp0u3x4BBVjnazWIMnSGyf/Untitled?node-id=2-2&starting-point-node-id=2%3A2')"><i class="fas fa-code"></i></a>
+                <a onclick="openModal('project4')" aria-label="Ver detalhes do projeto"><i class="fas fa-eye"></i></a>
+                <a onclick="openProjectLink('https://github.com/prjDevflow/prj_2dsm')" aria-label="Ver código fonte"><i
+                    class="fas fa-code"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>ABP 2º Semestre</h3>
+            <p>Website de visualização e disseminação de dados limnológicos.</p>
+            <div class="project-tags">
+              <span>React</span>
+              <span>Docker</span>
+              <span>TypeScript</span>
+              <span>SQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" data-category="backend">
+          <div class="project-image">
+            <img src="./assets/images/figma-1.png" alt="Projeto Figma" loading="lazy" />
+            <div class="project-overlay">
+              <div class="project-links">
+                <a onclick="openModal('project2')" aria-label="Ver detalhes do projeto"><i class="fas fa-eye"></i></a>
+                <a onclick="openProjectLink('https://www.figma.com/proto/lp0u3x4BBVjnazWIMnSGyf/Untitled?node-id=2-2&starting-point-node-id=2%3A2')" aria-label="Ver protótipo no Figma"><i class="fas fa-code"></i></a>
               </div>
             </div>
           </div>
@@ -444,10 +517,10 @@
 
         <div class="project-card" data-category="fullstack">
           <div class="project-image">
-            <img src="./assets/images/jogoDaVelha.png" alt="Jogo da Velha" />
+            <img src="./assets/images/jogoDaVelha.png" alt="Jogo da Velha" loading="lazy" />
             <div class="project-overlay">
               <div class="project-links">
-                <a onclick="openModal('project3')"><i class="fas fa-eye"></i></a>
+                <a onclick="openModal('project3')" aria-label="Ver detalhes do projeto"><i class="fas fa-eye"></i></a>
               </div>
             </div>
           </div>
@@ -468,14 +541,14 @@
   </section>
 
   <!-- Modal para o Projeto 1 -->
-  <div id="modal-project1" class="modal">
+  <div id="modal-project1" class="modal" role="dialog" aria-labelledby="modal-title-project1" aria-modal="true">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>ABP 1º Semestre</h2>
-        <button class="close-modal" onclick="closeModal('project1')">&times;</button>
+        <h2 id="modal-title-project1">ABP 1º Semestre</h2>
+        <button class="close-modal" onclick="closeModal('project1')" aria-label="Fechar modal">&times;</button>
       </div>
       <div class="modal-body">
-        <img src="./assets/images/abp-1.png" alt="ABP Website" class="modal-image">
+        <img src="./assets/images/abp-1.png" alt="ABP Website" class="modal-image" loading="lazy">
 
         <div class="modal-features">
           <h4>Sobre o projeto</h4>
@@ -525,15 +598,65 @@
     </div>
   </div>
 
-  <!-- Modal para o Projeto 2 -->
-  <div id="modal-project2" class="modal">
+  <!-- Modal para o Projeto 4 -->
+  <div id="modal-project4" class="modal" role="dialog" aria-labelledby="modal-title-project4" aria-modal="true">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Projeto Figma</h2>
-        <button class="close-modal" onclick="closeModal('project2')">&times;</button>
+        <h2 id="modal-title-project4">ABP 2º Semestre</h2>
+        <button class="close-modal" onclick="closeModal('project4')" aria-label="Fechar modal">&times;</button>
       </div>
       <div class="modal-body">
-        <img src="./assets/images/figma-1.png" alt="Figma Design" class="modal-image">
+        <img src="./assets/images/abp-2.png" alt="ABP Website" class="modal-image" loading="lazy">
+
+        <div class="modal-features">
+          <h4>Sobre o projeto</h4>
+          <ul>
+            <p>
+              Aplicação Web para visualização e disseminação de dados limnológicos para o INPE
+              com mapas interativos, tabelas de dados e gráficos por séries temporais. 
+            </p>
+          </ul>
+        </div>
+
+        <div class="modal-features">
+          <h4>Minha responsabilidade</h4>
+          <ul>
+            <p>
+Neste projeto, atuei como Project Owner coordenando a visão estratégica da aplicação web voltada à visualização e disseminação de dados limnológicos para o INPE, alinhando necessidades técnicas e científicas aos requisitos do produto. Liderei a definição das prioridades, direcionei o time nas decisões de design e arquitetura, e acompanhei a evolução das entregas para garantir que mapas interativos, tabelas e gráficos de séries temporais fossem implementados com precisão, coerência e usabilidade. Ao longo do processo, mantive a comunicação constante com os stakeholders, assegurando que cada funcionalidade refletisse os objetivos institucionais e fortalecesse a qualidade e a confiabilidade da plataforma
+            </p>
+          </ul>
+        </div>
+
+        <div class="modal-features">
+          <h4>Funcionalidades</h4>
+          <ul>
+            <li>Mapa interativo </li>
+            <li>Tabela com os dados filtrados por data</li>
+            <li>Gráfico por séries temporais</li>
+          </ul>
+        </div>
+
+        <div class="modal-actions">
+          <a href="https://prj-1sem-client.vercel.app/" class="action-btn btn-primary" target="_blank">
+            <i class="fas fa-external-link-alt"></i> Ver projeto online
+          </a>
+          <a href="https://github.com/prjDevflow/prj_2dsm" class="action-btn btn-secondary" target="_blank">
+            <i class="fab fa-github"></i> Ver código fonte
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para o Projeto 2 -->
+  <div id="modal-project2" class="modal" role="dialog" aria-labelledby="modal-title-project2" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title-project2">Projeto Figma</h2>
+        <button class="close-modal" onclick="closeModal('project2')" aria-label="Fechar modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img src="./assets/images/figma-1.png" alt="Figma Design" class="modal-image" loading="lazy">
 
         <div class="modal-features">
           <div>
@@ -565,14 +688,14 @@
   </div>
 
   <!-- Modal para o Projeto 3 -->
-  <div id="modal-project3" class="modal">
+  <div id="modal-project3" class="modal" role="dialog" aria-labelledby="modal-title-project3" aria-modal="true">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>Jogo da Velha</h2>
-        <button class="close-modal" onclick="closeModal('project3')">&times;</button>
+        <h2 id="modal-title-project3">Jogo da Velha</h2>
+        <button class="close-modal" onclick="closeModal('project3')" aria-label="Fechar modal">&times;</button>
       </div>
       <div class="modal-body">
-        <img src="./assets/images/jogoDaVelha.png" alt="Jogo da Velha" class="modal-image">
+        <img src="./assets/images/jogoDaVelha.png" alt="Jogo da Velha" class="modal-image" loading="lazy">
 
         <div class="modal-features">
           <div>
@@ -674,9 +797,9 @@
           </p>
         </div>
         <div class="social-links">
-          <a href="https://github.com/Raflael"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/rafael-medeiros-aa60241a7"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.instagram.com/_rafaelvmc"><i class="fab fa-instagram"></i></a>
+          <a href="https://github.com/Raflael" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/rafael-medeiros-aa60241a7" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.instagram.com/_rafaelvmc" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -692,39 +815,50 @@
   <script>
     // Função para abrir o modal
     function openModal(modalId) {
-      document.getElementById(`modal-${modalId}`).style.display = 'block';
-      document.body.style.overflow = 'hidden'; // Impede scroll da página principal
+      const modal = document.getElementById(`modal-${modalId}`);
+      if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Impede scroll da página principal
+        // Foca no botão de fechar para acessibilidade
+        const closeBtn = modal.querySelector('.close-modal');
+        if (closeBtn) closeBtn.focus();
+      }
     }
 
     // Função para fechar o modal
     function closeModal(modalId) {
-      document.getElementById(`modal-${modalId}`).style.display = 'none';
-      document.body.style.overflow = 'auto'; // Restaura scroll
+      const modal = document.getElementById(`modal-${modalId}`);
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restaura scroll
+      }
     }
 
     // Função para abrir link externo (para o botão de código)
     function openProjectLink(url) {
-      window.open(url, '_blank');
+      if (url && url !== '#') {
+        window.open(url, '_blank');
+      }
     }
 
     // Fechar modal clicando fora do conteúdo
-    window.onclick = function (event) {
+    document.addEventListener('click', function (event) {
       if (event.target.classList.contains('modal')) {
         event.target.style.display = 'none';
         document.body.style.overflow = 'auto';
       }
-    }
+    });
 
     // Fechar modal com a tecla ESC
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape') {
-        const modals = document.getElementsByClassName('modal');
-        for (let modal of modals) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
           if (modal.style.display === 'block') {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
           }
-        }
+        });
       }
     });
 
@@ -738,6 +872,17 @@
           openModal('cv');
         });
       }
+
+      // Adicionar eventos para todos os botões de fechar modal
+      document.querySelectorAll('.close-modal').forEach(button => {
+        button.addEventListener('click', function() {
+          const modal = this.closest('.modal');
+          if (modal) {
+            const modalId = modal.id.replace('modal-', '');
+            closeModal(modalId);
+          }
+        });
+      });
     });
   </script>
 </body>
