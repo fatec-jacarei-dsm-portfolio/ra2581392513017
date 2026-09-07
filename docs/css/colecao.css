@@ -1,0 +1,903 @@
+/* =========================================================================
+   CADERNO DE CAMPO — o sujeito, a estratigrafia, a coleção e os anexos
+   ========================================================================= */
+
+/* ============================ 6. O SUJEITO ============================== */
+
+.sujeito {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.figura {
+  position: relative;
+  background: var(--papel-alto);
+  padding: .8rem .8rem 1rem;
+  box-shadow: var(--sombra-papel);
+  border: 1px solid var(--tinta-linha);
+}
+.figura__imagem { position: relative; overflow: hidden; }
+.figura__imagem img {
+  width: 100%;
+  filter: grayscale(1) sepia(.42) contrast(1.12) brightness(1.02);
+}
+[data-modo="noite"] .figura__imagem img {
+  filter: grayscale(1) sepia(.28) contrast(1.15) brightness(.78);
+}
+
+/* marcadores A, B, C, D sobre o retrato */
+.marcador {
+  position: absolute;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--papel-alto);
+  background: var(--cochonilha);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: .62rem;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .35);
+  transition: transform .3s cubic-bezier(.2, .7, .3, 1), background-color .3s;
+}
+.marcador::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid var(--cochonilha);
+  opacity: 0;
+  transform: scale(.7);
+  transition: opacity .35s, transform .35s;
+}
+.figura:hover .marcador::after,
+.marcador.aceso::after { opacity: .7; transform: none; }
+.marcador.aceso { transform: scale(1.18); background: var(--ocre); }
+
+.figura__legenda {
+  margin-top: .85rem;
+  font-family: var(--mono);
+  font-size: .58rem;
+  letter-spacing: .1em;
+  color: var(--tinta-fraca);
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.decifra {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+  display: grid;
+  gap: .1rem;
+  border-top: 1px solid var(--tinta-linha);
+}
+.decifra li {
+  display: grid;
+  grid-template-columns: 1.55rem 1fr;
+  gap: .85rem;
+  align-items: baseline;
+  padding: .72rem .5rem .72rem .2rem;
+  border-bottom: 1px solid var(--tinta-linha);
+  cursor: default;
+  transition: background-color .3s;
+}
+.decifra li:hover { background: rgba(180, 131, 42, .09); }
+.decifra b {
+  font-family: var(--mono);
+  font-size: .7rem;
+  font-weight: 600;
+  color: var(--cochonilha);
+}
+.decifra strong {
+  display: block;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+  font-weight: 500;
+  margin-bottom: .12rem;
+}
+.decifra span { font-size: .97rem; }
+
+.sujeito__texto p { max-width: min(60ch, 100%); }
+.sujeito__texto p + p { margin-top: 1em; }
+.sujeito__texto .destaque {
+  font-family: var(--titulo);
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.32;
+  font-variation-settings: 'SOFT' 34, 'WONK' 1, 'opsz' 96;
+  margin-bottom: 1.2rem;
+  max-width: min(26ch, 100%);
+}
+.sujeito__texto .destaque em { font-style: italic; color: var(--musgo); }
+
+/* linhas de pesquisa */
+.linhas {
+  margin-top: 2.2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--tinta-linha);
+}
+.linhas > .rotulo { display: block; margin-bottom: .9rem; }
+.linhas ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: .9rem;
+}
+.linhas li {
+  border-left: 2px solid var(--musgo);
+  padding: .15rem 0 .15rem .85rem;
+  font-size: .96rem;
+}
+.linhas li b {
+  display: block;
+  font-family: var(--mono);
+  font-size: .63rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--musgo);
+  margin-bottom: .2rem;
+}
+
+@media (max-width: 880px) {
+  .sujeito { grid-template-columns: minmax(0, 1fr); }
+  .figura { max-width: 20rem; }
+}
+
+/* ========================= 7. ESTRATIGRAFIA ============================= */
+
+.perfil { list-style: none; margin: 0; padding: 0; }
+
+.camada {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: stretch;
+  position: relative;
+}
+
+.camada__escala {
+  font-family: var(--mono);
+  font-size: .66rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  color: var(--tinta-media);
+  padding: 1.6rem 1.1rem 1.6rem 0;
+  text-align: right;
+  border-right: 1px solid var(--tinta-linha);
+  position: relative;
+}
+.camada__escala::after {
+  content: '';
+  position: absolute;
+  right: -3.5px;
+  top: 1.95rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--papel);
+  border: 1.5px solid var(--tinta-media);
+}
+.camada:first-child .camada__escala::after {
+  background: var(--cochonilha);
+  border-color: var(--cochonilha);
+}
+.camada__escala small {
+  display: block;
+  font-size: .55rem;
+  letter-spacing: .16em;
+  color: var(--tinta-fraca);
+  margin-top: .2rem;
+  text-transform: uppercase;
+}
+
+.camada__corpo {
+  padding: 1.5rem 1.5rem 1.6rem;
+  position: relative;
+  border-bottom: 1px solid var(--tinta-linha);
+}
+.camada:last-child .camada__corpo { border-bottom: 0; }
+.camada__corpo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--hachura);
+  opacity: .75;
+  pointer-events: none;
+  transition: opacity .4s;
+}
+.camada:hover .camada__corpo::before { opacity: .85; }
+
+.camada__corpo > * { position: relative; }
+.camada h3 {
+  font-size: clamp(1.1rem, 2.3vw, 1.4rem);
+  margin-bottom: .12rem;
+  font-variation-settings: 'SOFT' 26, 'WONK' 1, 'opsz' 72;
+}
+.camada__papel {
+  font-family: var(--mono);
+  font-size: .61rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--musgo);
+  margin-bottom: .6rem;
+  display: block;
+  font-weight: 500;
+}
+.camada p { font-size: .97rem; max-width: min(62ch, 100%); color: var(--tinta-media); }
+
+@media (max-width: 700px) {
+  .camada { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .camada__escala {
+    text-align: left;
+    border-right: 0;
+    padding: 1.4rem 0 .2rem;
+    border-top: 1px solid var(--tinta-linha);
+  }
+  .camada__escala::after { display: none; }
+  .camada__corpo { padding: .4rem 0 1.5rem; border-bottom: 0; }
+  .camada:first-child .camada__escala { border-top: 0; }
+}
+
+/* ============================ 8. A COLEÇÃO ============================== */
+
+.gaveta__topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.peneira { display: flex; flex-wrap: wrap; gap: .4rem; }
+.peneira button {
+  background: transparent;
+  border: 1px solid var(--tinta-linha);
+  padding: .42rem .85rem;
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--tinta-media);
+  cursor: pointer;
+  transition: background-color .25s, color .25s, border-color .25s;
+}
+.peneira button:hover { border-color: var(--tinta-media); color: var(--tinta); }
+.peneira button[aria-pressed="true"] {
+  background: var(--tinta);
+  border-color: var(--tinta);
+  color: var(--papel);
+}
+
+.gaveta__navega { display: flex; align-items: center; gap: .5rem; margin-left: auto; }
+.gaveta__conta {
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .13em;
+  color: var(--tinta-fraca);
+  margin-right: .4rem;
+  font-variant-numeric: tabular-nums;
+}
+.seta {
+  width: 2.3rem;
+  height: 2.3rem;
+  border: 1px solid var(--tinta-media);
+  background: transparent;
+  color: var(--tinta);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color .22s, color .22s, opacity .22s;
+}
+.seta:hover:not(:disabled) { background: var(--tinta); color: var(--papel); }
+.seta:disabled { opacity: .25; cursor: default; }
+.seta svg { width: 15px; height: 15px; }
+
+/* trilho */
+.trilho {
+  position: relative;
+  display: flex;
+  justify-content: safe center;
+  gap: clamp(1rem, 2.4vw, 1.8rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline-start: .35rem;
+  padding: 1.4rem .35rem 2.6rem;
+  margin-inline: -.35rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--tinta-fraca) transparent;
+  cursor: grab;
+}
+.trilho.arrastando { cursor: grabbing; scroll-snap-type: none; }
+.trilho.arrastando * { pointer-events: none; }
+.trilho::-webkit-scrollbar { height: 5px; }
+.trilho::-webkit-scrollbar-track { background: var(--tinta-linha); }
+.trilho::-webkit-scrollbar-thumb { background: var(--tinta-fraca); }
+
+/* ---------- ficha de espécime ---------- */
+
+.ficha {
+  scroll-snap-align: start;
+  flex: 0 0 min(26.5rem, 84vw);
+  background: var(--papel-alto);
+  border: 1px solid var(--tinta-linha);
+  box-shadow: var(--sombra-papel);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform .45s cubic-bezier(.2, .7, .3, 1), box-shadow .45s, opacity .35s;
+}
+.ficha:hover { transform: translateY(-5px); box-shadow: var(--sombra-alta); }
+.ficha[hidden] { display: none; }
+
+/* alfinete entomológico */
+.ficha__alfinete {
+  position: absolute;
+  top: -.55rem;
+  right: 1.5rem;
+  z-index: 3;
+  color: var(--cochonilha);
+  filter: drop-shadow(1px 3px 2px rgba(43, 35, 24, .35));
+  transition: transform .45s cubic-bezier(.2, .7, .3, 1);
+}
+.ficha:hover .ficha__alfinete { transform: translateY(-3px) rotate(-7deg); }
+
+.ficha__tombo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: .7rem .95rem;
+  border-bottom: 1px solid var(--tinta-linha);
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.ficha__tombo b { font-weight: 600; letter-spacing: .18em; }
+.ficha__tombo span { color: var(--tinta-fraca); padding-right: 2.4rem; }
+
+.ficha__prancha {
+  position: relative;
+  margin: .95rem .95rem 0;
+  border: 1px solid var(--tinta-linha);
+  background: var(--papel-fundo);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+}
+.ficha__prancha img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: sepia(.16) saturate(.94);
+  transition: transform .7s cubic-bezier(.2, .7, .3, 1), filter .5s;
+}
+.ficha:hover .ficha__prancha img { transform: scale(1.045); }
+[data-modo="noite"] .ficha__prancha img { filter: sepia(.06) brightness(.86); }
+
+.ficha__prancha--alto { aspect-ratio: 4 / 3; }
+.ficha__prancha--alto img { object-fit: contain; object-position: center; background: var(--papel-vinco); }
+
+.ficha__vazia {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  margin: .95rem .95rem 0;
+  border: 1px dashed var(--tinta-fraca);
+  color: var(--tinta-fraca);
+  font-family: var(--mao);
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  line-height: 1.25;
+}
+
+.ficha__corpo { padding: 1.05rem .95rem 1.15rem; display: flex; flex-direction: column; flex: 1; }
+
+.ficha h3 {
+  font-size: 1.42rem;
+  font-variation-settings: 'SOFT' 30, 'WONK' 1, 'opsz' 72;
+  margin-bottom: .1rem;
+}
+.ficha__binomial {
+  font-style: italic;
+  font-size: .92rem;
+  color: var(--musgo);
+  margin-bottom: .75rem;
+}
+.ficha__resumo { font-size: .96rem; color: var(--tinta-media); margin-bottom: 1rem; }
+
+/* observações do coletor — a contribuição pessoal */
+.coletor {
+  background: rgba(180, 131, 42, .1);
+  border-left: 2px solid var(--ocre);
+  padding: .7rem .85rem .75rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+[data-modo="noite"] .coletor { background: rgba(226, 180, 85, .09); }
+.coletor > b {
+  display: block;
+  font-family: var(--mono);
+  font-size: .57rem;
+  font-weight: 600;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  color: var(--ocre-tinta);
+  margin-bottom: .3rem;
+}
+.coletor code,
+.coletor em {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: .86em;
+  background: rgba(43, 35, 24, .07);
+  padding: .05em .3em;
+}
+[data-modo="noite"] .coletor code,
+[data-modo="noite"] .coletor em { background: rgba(236, 226, 204, .1); }
+.coletor p { font-size: .91rem; line-height: 1.55; margin: 0; }
+
+.ficha__dados {
+  margin: 0 0 1.1rem;
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr);
+  gap: .38rem .8rem;
+  font-family: var(--mono);
+  font-size: .655rem;
+  align-items: baseline;
+}
+.ficha__dados dt {
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+  font-size: .555rem;
+}
+.ficha__dados dd { margin: 0; letter-spacing: .04em; line-height: 1.5; }
+
+.ficha__pe { margin-top: auto; display: flex; flex-wrap: wrap; gap: .5rem; }
+.ficha__pe .btn { padding: .55rem .95rem; font-size: .64rem; }
+
+@media (max-width: 560px) {
+  .ficha { flex: 0 0 min(22rem, 88vw); }
+  .gaveta__navega { margin-left: 0; width: 100%; }
+}
+
+/* ---------- pontos do carrossel ---------- */
+
+.pontos {
+  display: flex;
+  justify-content: center;
+  gap: .45rem;
+  margin-top: -1rem;
+  list-style: none;
+  padding: 0;
+}
+.pontos button {
+  width: 26px;
+  height: 3px;
+  padding: 0;
+  border: 0;
+  background: var(--tinta-linha);
+  cursor: pointer;
+  transition: background-color .3s, width .3s;
+}
+.pontos button[aria-current="true"] { background: var(--cochonilha); width: 40px; }
+
+/* ============================ 9. LUPA (modal) =========================== */
+
+.lupa[hidden] { display: none; }
+
+.lupa {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: clamp(.75rem, 3vw, 2.5rem);
+  background: rgba(28, 23, 15, .72);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .32s, visibility .32s;
+}
+.lupa.aberta { opacity: 1; visibility: visible; }
+
+.lupa__folha {
+  position: relative;
+  background: var(--papel);
+  width: min(58rem, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  box-shadow: var(--sombra-alta);
+  border: 1px solid var(--tinta-linha);
+  transform: translateY(22px) scale(.985);
+  transition: transform .38s cubic-bezier(.2, .7, .3, 1);
+}
+.lupa.aberta .lupa__folha { transform: none; }
+
+.lupa__fechar {
+  position: sticky;
+  top: 0;
+  margin-left: auto;
+  display: block;
+  z-index: 4;
+  width: 2.6rem;
+  height: 2.6rem;
+  background: var(--papel);
+  border: 0;
+  border-left: 1px solid var(--tinta-linha);
+  border-bottom: 1px solid var(--tinta-linha);
+  color: var(--tinta);
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: background-color .25s, color .25s;
+}
+.lupa__fechar:hover { background: var(--cochonilha); color: #fff; }
+
+.lupa__conteudo { padding: 0 clamp(1.2rem, 4vw, 2.8rem) clamp(1.8rem, 4vw, 2.6rem); margin-top: -2.6rem; }
+
+.lupa__cabeca { padding-top: 1.5rem; padding-right: 3rem; border-bottom: 1px solid var(--tinta-linha); padding-bottom: 1.1rem; margin-bottom: 1.5rem; }
+.lupa__cabeca .rotulo { display: block; margin-bottom: .5rem; }
+.lupa__cabeca h3 {
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  font-variation-settings: 'SOFT' 34, 'WONK' 1, 'opsz' 120;
+  margin-bottom: .18rem;
+}
+.lupa__cabeca .ficha__binomial { font-size: 1.05rem; margin: 0; }
+
+.lupa__galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: .9rem 1rem;
+  margin-bottom: 1.8rem;
+}
+.lupa__galeria figure { margin: 0; }
+.lupa__galeria img {
+  width: 100%;
+  /* proporção uniforme: senão o banner largo e os prints altos desalinham a grade */
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid var(--tinta-linha);
+  background: var(--papel-alto);
+  box-shadow: var(--sombra-papel);
+}
+/* diagrama recortado perde os atores das pontas: mostra inteiro, sempre */
+.lupa__galeria--diagrama img {
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #fbfbf9;
+  padding: .4rem;
+}
+
+/* telas de celular: proporção do próprio aparelho, sem moldura sobrando */
+.lupa__galeria--alta { grid-template-columns: repeat(auto-fit, minmax(min(100%, 10.5rem), 1fr)); }
+.lupa__galeria--alta img { aspect-ratio: 430 / 834; object-fit: cover; object-position: top; }
+.lupa__galeria figcaption {
+  font-family: var(--mono);
+  font-size: .55rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+  margin-top: .42rem;
+}
+
+.nota-prancha {
+  margin: -1rem 0 1.8rem;
+  padding: .65rem .9rem;
+  border-left: 2px solid var(--tinta-linha);
+  font-size: .89rem;
+  color: var(--tinta-media);
+  font-style: italic;
+}
+
+.lupa__colunas {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
+  gap: clamp(1.5rem, 4vw, 2.8rem);
+  align-items: start;
+}
+@media (max-width: 760px) { .lupa__colunas { grid-template-columns: 1fr; } }
+
+.lupa h4 {
+  font-family: var(--mono);
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+  margin: 1.6rem 0 .55rem;
+  padding-bottom: .35rem;
+  border-bottom: 1px solid var(--tinta-linha);
+}
+.lupa__colunas > div > h4:first-child { margin-top: 0; }
+
+.lupa ul.marcas { list-style: none; margin: 0; padding: 0; }
+.lupa ul.marcas li {
+  padding-left: 1.15rem;
+  position: relative;
+  margin-bottom: .42rem;
+  font-size: .96rem;
+}
+.lupa ul.marcas li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .62em;
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--musgo);
+  transform: rotate(45deg);
+}
+
+.etiquetas { display: flex; flex-wrap: wrap; gap: .34rem; }
+.etiquetas span {
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .08em;
+  padding: .26rem .55rem;
+  border: 1px solid var(--tinta-linha);
+  background: var(--papel-alto);
+  color: var(--tinta-media);
+}
+
+.lupa__pe { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.8rem; }
+
+/* ========================= 10. INSTRUMENTOS ============================= */
+
+.instrumentos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr));
+  gap: clamp(1.2rem, 3vw, 2rem);
+}
+.caixa-instrumento {
+  border-top: 2px solid var(--tinta);
+  padding-top: .9rem;
+}
+.caixa-instrumento > .rotulo { display: block; margin-bottom: .9rem; }
+.caixa-instrumento ul { list-style: none; margin: 0; padding: 0; }
+.caixa-instrumento li {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .42rem 0;
+  border-bottom: 1px dotted var(--tinta-linha);
+  font-family: var(--mono);
+  font-size: .74rem;
+}
+.caixa-instrumento li:last-child { border-bottom: 0; }
+.caixa-instrumento li span { margin-right: auto; }
+
+.pontinhos { display: flex; gap: 3px; flex-shrink: 0; }
+.pontinhos i {
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--tinta-media);
+  background: transparent;
+}
+.pontinhos i.cheio {
+  background: var(--musgo);
+  border-color: var(--musgo);
+  animation: encher .5s cubic-bezier(.2, .7, .3, 1) backwards var(--atraso, 0s);
+}
+@keyframes encher {
+  from { background: transparent; transform: scale(.5); }
+  to { background: var(--musgo); transform: none; }
+}
+
+.escala-nota {
+  margin: 1.8rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--tinta-linha);
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .1em;
+  color: var(--tinta-fraca);
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem 1.6rem;
+  text-transform: uppercase;
+}
+.escala-nota span { display: inline-flex; align-items: center; gap: .45rem; }
+.escala-nota .pontinhos i { width: 6px; height: 6px; }
+.escala-nota .pontinhos i.cheio { animation: none; }
+
+/* =========================== 11. ANEXOS ================================= */
+
+.anexos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+}
+.anexo {
+  background: var(--papel-alto);
+  border: 1px solid var(--tinta-linha);
+  padding: 1.2rem 1.25rem 1.3rem;
+  box-shadow: var(--sombra-papel);
+  position: relative;
+  transition: transform .4s cubic-bezier(.2, .7, .3, 1);
+}
+.anexo:nth-child(odd) { transform: rotate(-.35deg); }
+.anexo:nth-child(even) { transform: rotate(.4deg); }
+.anexo:hover { transform: rotate(0deg) translateY(-3px); }
+.anexo > .rotulo { display: block; margin-bottom: .8rem; color: var(--cochonilha); }
+.anexo ul { list-style: none; margin: 0; padding: 0; }
+.anexo li { padding: .48rem 0; border-bottom: 1px dotted var(--tinta-linha); font-size: .95rem; }
+.anexo li:last-child { border-bottom: 0; padding-bottom: 0; }
+.anexo li b { display: block; font-weight: 600; }
+.anexo li small {
+  display: block;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .1em;
+  color: var(--tinta-fraca);
+  margin-top: .1rem;
+}
+.anexo li em {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: .6rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--musgo);
+  float: right;
+  margin-left: .5rem;
+}
+
+/* ======================= 12. CORRESPONDÊNCIA ============================ */
+
+.correio {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(1rem, 3vw, 1.8rem);
+  max-width: 46rem;
+}
+.selo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.3rem 1.4rem;
+  background: var(--papel-alto);
+  border: 1px solid var(--tinta-linha);
+  text-decoration: none;
+  box-shadow: var(--sombra-papel);
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s cubic-bezier(.2, .7, .3, 1), box-shadow .3s;
+}
+.selo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--musgo);
+  transform: translateY(101%);
+  transition: transform .42s cubic-bezier(.2, .7, .3, 1);
+  z-index: 0;
+}
+.selo:hover { transform: translateY(-4px); box-shadow: var(--sombra-alta); }
+.selo:hover::after { transform: translateY(0); }
+.selo:hover .selo__icone,
+.selo:hover .selo__texto { color: var(--papel-alto); }
+.selo > * { position: relative; z-index: 1; }
+.selo__icone { flex-shrink: 0; color: var(--tinta); transition: color .35s; }
+.selo__icone svg { width: 30px; height: 30px; }
+.selo__texto { transition: color .35s; }
+.selo__texto b {
+  display: block;
+  font-family: var(--titulo);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+.selo__texto span {
+  font-family: var(--mono);
+  font-size: .63rem;
+  letter-spacing: .1em;
+  color: inherit;
+  opacity: .72;
+}
+
+.aviso-correio {
+  margin-top: 2.4rem;
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .1em;
+  color: var(--tinta-fraca);
+  max-width: 44rem;
+  line-height: 1.7;
+}
+
+/* ========================== 13. COLOFÃO ================================= */
+
+.colofao {
+  border-top: 2px solid var(--tinta);
+  padding: clamp(2rem, 5vw, 3.2rem) 0 clamp(1.6rem, 4vw, 2.4rem);
+  background: var(--papel-fundo);
+}
+.colofao__grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 1.6rem;
+  align-items: start;
+  margin-bottom: 2rem;
+}
+.colofao dt {
+  font-family: var(--mono);
+  font-size: .56rem;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+  margin-bottom: .3rem;
+}
+.colofao dd { margin: 0; font-family: var(--mono); font-size: .73rem; line-height: 1.65; }
+.colofao dd a { color: var(--musgo); text-underline-offset: 3px; }
+
+.colofao__pe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem 1.5rem;
+  align-items: center;
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--tinta-linha);
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .11em;
+  color: var(--tinta-fraca);
+  text-transform: uppercase;
+}
+.colofao__pe .mao {
+  font-size: 1.15rem;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-left: auto;
+  color: var(--lapis);
+}
+
+/* ===================== 14. BORBOLETA (ornamento) ======================== */
+
+.borboleta { display: block; margin: 0 auto; color: var(--tinta-media); }
+.borboleta .asa { transform-origin: 50% 50%; }
+.borboleta .asa-e { animation: bater-e 3.4s ease-in-out infinite; }
+.borboleta .asa-d { animation: bater-d 3.4s ease-in-out infinite; }
+
+@keyframes bater-e {
+  0%, 42%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(.34); }
+  58% { transform: scaleX(1); }
+  66% { transform: scaleX(.5); }
+  74% { transform: scaleX(1); }
+}
+@keyframes bater-d {
+  0%, 42%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(.34); }
+  58% { transform: scaleX(1); }
+  66% { transform: scaleX(.5); }
+  74% { transform: scaleX(1); }
+}
+
+.divisor {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: clamp(1.5rem, 4vw, 2.6rem) 0;
+}
+.divisor::before,
+.divisor::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--tinta-linha) 22%, var(--tinta-linha) 78%, transparent);
+}

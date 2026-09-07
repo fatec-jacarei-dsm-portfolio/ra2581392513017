@@ -1,11 +1,19 @@
 # Portfólio de Projetos - Fatec Jacareí
-### Aluno: RAFAEL VITOR DE MEDEIROS COSTA.
-### Curso: Desenvolvimento de Software Multiplataforma
-### Turma: 1o. Semestre de 2025
- 
+
+**Aluno:** Rafael Vitor de Medeiros Costa  
+**Curso:** Desenvolvimento de Software Multiplataforma  
+**Turma:** 1º semestre de 2025
+
 ---
 
+**Portfólio Online**
 
-### Portfólio Online  
 🔗 [Acesse o Portfólio](https://fatec-jacarei-dsm-portfolio.github.io/ra2581392513017/)
-🎤 [Pitch de Apresentação (vídeo)](https://youtu.be/MPg5gBPDvGA)
+
+---
+
+**Vídeos de Apresentação**
+
+🎤 2DSM - [Vídeo](https://youtu.be/MPg5gBPDvGA)  
+🎤 4DSM - [Vídeo](LINK_VIDEO_4DSM)  
+🎤 6DSM - [Vídeo](LINK_VIDEO_6DSM)

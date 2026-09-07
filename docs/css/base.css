@@ -1,0 +1,242 @@
+/* =========================================================================
+   CADERNO DE CAMPO — base
+   Tipografia servida do próprio repositório (assets/fonts), sem CDN.
+   ========================================================================= */
+
+@font-face {
+  font-family: 'Fraunces';
+  src: url('../assets/fonts/fraunces-latin.woff2') format('woff2');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Newsreader';
+  src: url('../assets/fonts/newsreader-latin.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plex Mono';
+  src: url('../assets/fonts/plexmono-400-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plex Mono';
+  src: url('../assets/fonts/plexmono-500-latin.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plex Mono';
+  src: url('../assets/fonts/plexmono-600-latin.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Caneta';
+  src: url('../assets/fonts/caveat-latin.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- tokens: coleta diurna (padrão) ---------- */
+
+:root {
+  color-scheme: light;
+
+  --papel:        #f1e8d7;
+  --papel-alto:   #f7f0e2;
+  --papel-fundo:  #e4d9c3;
+  --papel-vinco:  #dbcfb6;
+
+  --tinta:        #2b2318;
+  --tinta-media:  #5d5140;
+  --tinta-fraca:  #6f6350;
+  --tinta-linha:  rgba(43, 35, 24, .14);
+
+  --musgo:        #4c6741;
+  --musgo-vivo:   #6d8c52;
+  --cochonilha:   #a53a2b;
+  --ocre:         #b4832a;
+  --ocre-tinta:   #8a6414;
+  --lapis:        #3a5670;
+
+  --sombra-papel: 0 1px 0 rgba(255,255,255,.55), 0 2px 5px rgba(43,35,24,.10), 0 12px 24px -14px rgba(43,35,24,.35);
+  --sombra-alta:  0 2px 4px rgba(43,35,24,.10), 0 26px 50px -22px rgba(43,35,24,.55);
+
+  --fita:         rgba(219, 200, 152, .72);
+  --vidro:        rgba(241, 232, 215, .86);
+
+  --serif:  'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --titulo: 'Fraunces', 'Newsreader', Georgia, serif;
+  --mono:   'Plex Mono', 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  --mao:    'Caneta', 'Segoe Script', 'Bradley Hand', cursive;
+
+  --largura: 1180px;
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+
+  --grao: .34;
+}
+
+/* ---------- tokens: coleta noturna (armadilha luminosa) ---------- */
+
+[data-modo="noite"] {
+  color-scheme: dark;
+
+  --papel:        #1a1a17;
+  --papel-alto:   #23231e;
+  --papel-fundo:  #121210;
+  --papel-vinco:  #2c2b24;
+
+  --tinta:        #ece2cc;
+  --tinta-media:  #b3a992;
+  --tinta-fraca:  #9a9182;
+  --tinta-linha:  rgba(236, 226, 204, .13);
+
+  --musgo:        #9ec27a;
+  --musgo-vivo:   #b6d894;
+  --cochonilha:   #e2705a;
+  --ocre:         #e2b455;
+  --ocre-tinta:   #e2b455;
+  --lapis:        #8fb2cf;
+
+  --sombra-papel: 0 1px 0 rgba(255,255,255,.05), 0 2px 6px rgba(0,0,0,.5), 0 14px 30px -16px rgba(0,0,0,.9);
+  --sombra-alta:  0 2px 6px rgba(0,0,0,.5), 0 30px 60px -24px rgba(0,0,0,1);
+
+  --fita:         rgba(226, 180, 85, .22);
+  --vidro:        rgba(26, 26, 23, .88);
+
+  --grao: .18;
+}
+
+/* ---------- reset curto ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1rem, .96rem + .22vw, 1.115rem);
+  line-height: 1.62;
+  color: var(--tinta);
+  background-color: var(--papel);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .5s ease, color .5s ease;
+}
+
+/* grão de papel — SVG gerado no próprio arquivo, nada externo */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: var(--grao);
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
+  transition: opacity .5s ease;
+}
+[data-modo="noite"] body::before { mix-blend-mode: screen; }
+
+img { max-width: 100%; height: auto; display: block; }
+button { font: inherit; color: inherit; }
+a { color: inherit; }
+
+h1, h2, h3, h4 {
+  font-family: var(--titulo);
+  font-weight: 700;
+  line-height: 1.08;
+  margin: 0;
+  font-variation-settings: 'SOFT' 22, 'WONK' 1, 'opsz' 96;
+  letter-spacing: -.012em;
+}
+
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+
+::selection { background: var(--ocre); color: var(--papel-alto); }
+
+:focus-visible {
+  outline: 2px dashed var(--cochonilha);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ---------- utilidades do caderno ---------- */
+
+.envelope {
+  width: min(100% - var(--gutter) * 2, var(--largura));
+  margin-inline: auto;
+}
+
+.rotulo {
+  font-family: var(--mono);
+  font-size: .655rem;
+  font-weight: 600;
+  letter-spacing: .21em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+}
+
+.mao {
+  font-family: var(--mao);
+  font-size: 1.32rem;
+  line-height: 1.28;
+  color: var(--lapis);
+}
+
+.pular {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--tinta);
+  color: var(--papel);
+  padding: .7rem 1.1rem;
+  font-family: var(--mono);
+  font-size: .8rem;
+  z-index: 10000;
+}
+.pular:focus { left: 1rem; top: 1rem; }
+
+.vsr {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Revelação no scroll.
+   O estado escondido só existe quando o JS está de pé (classe .js aplicada no
+   <head>). Sem JS — ou se o script quebrar — o conteúdo aparece normalmente. */
+.js .surge {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .75s cubic-bezier(.2,.7,.3,1), transform .75s cubic-bezier(.2,.7,.3,1);
+  transition-delay: var(--atraso, 0ms);
+}
+.js .surge.visto { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .surge, .surge { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
