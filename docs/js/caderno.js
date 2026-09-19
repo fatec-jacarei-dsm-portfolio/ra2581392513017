@@ -288,6 +288,31 @@
    * ------------------------------------------------------------------ */
 
   var acervo = {
+    charco: {
+      tombo: 'ESP-006 · família pessoal · 2.º sem. 2026',
+      nome: 'Charco',
+      binomial: 'Stagnum vitae emergentis',
+      pranchas: [
+        ['assets/img/charco-banner.png', 'Banner gerado pelo próprio simulador: cada bicho é desenhado a partir de um genoma'],
+        ['assets/img/charco-1.png', 'O charco rodando — à direita, a prancha com traços, filogenia e diário'],
+        ['assets/img/charco-2.png', 'Prancha de espécimes: cada gene vira anatomia'],
+        ['assets/img/charco-3.png', 'Deriva continental — duas fendas isolam as populações']
+      ],
+      sobre: 'Um simulador de vida artificial que roda no navegador sem nenhuma dependência. As criaturas têm genoma, gastam energia, caçam, escolhem parceiro, se reproduzem com recombinação e morrem. A partir dessas regras aparecem sozinhos carnivoria, espécies com nome binomial, filogenia, migração climática, aposematismo e mimetismo — e o programa escreve o diário do que aconteceu.',
+      contribuicao: 'Projeto solo, do primeiro protótipo ao repositório publicado. A parte difícil não foi programar, foi modelar: cada vez que a simulação degenerava, a correção veio da biologia. O metabolismo basal seguiu a lei de Kleiber (massa elevada a 0,75, que no gene de comprimento vira expoente 2,25) e a corrida armamentista de tamanho parou; a carniça entrou como rampa evolutiva e a carnivoria conseguiu atravessar o vale adaptativo da dieta intermediária, que é como a necrofagia antecede a predação na natureza; o mundo deixou de ser toroidal e virou cilíndrico, porque num toro o polo frio faz fronteira com o quente e nicho por latitude não existe. Escrevi também a rede neural que decide o comportamento — 20 sensores com os pesos morando dentro do genoma — e o registro taxonômico que transforma isolamento reprodutivo em espécie nomeada. E documentei o que NÃO emergiu: o runaway de Fisher, com as três correções que tentei e a hipótese que restou.',
+      itens: [
+        'Espécies nascem de isolamento reprodutivo real e ganham nome binomial que descreve o bicho',
+        'Árvore filogenética desenhada ao vivo e museu dos fósseis das espécies extintas',
+        'Rede neural de 20 sensores com os 140 pesos dentro do genoma, trocável em tempo real',
+        'Aposematismo e mimetismo batesiano emergentes — o gene de cor nasce neutro e vira aviso',
+        'Deriva continental que isola dois continentes e confirma a especiação no reencontro',
+        'Cada corpo desenhado a partir do genoma: zero sprites, cache por clado para aguentar 400 bichos',
+        'Roda a ~15x tempo real num núcleo de um i3 com 8 GB'
+      ],
+      habitat: ['JavaScript ES2022', 'ES Modules', 'Canvas 2D', 'Node.js (ferramentas)', 'sem build', 'sem dependências'],
+      links: [['Repositório', 'https://github.com/Raflael/charco']]
+    },
+
     insetos: {
       tombo: 'ESP-005 · família pessoal · 2.º sem. 2026',
       nome: 'Insetos vs Zumbis',
@@ -340,14 +365,22 @@
       tombo: 'ESP-003 · família acadêmico · ABP 3DSM · 1.º sem. 2026',
       nome: 'DevFlow CRM',
       binomial: 'Mercator digitalis vallensis',
-      diagramas: true,
+      telas: true,
       pranchas: [
+        ['assets/img/crm-1.png', 'Dashboard analítico: indicadores do período, funil de vendas e evolução dos leads'],
+        ['assets/img/crm-2.png', 'Dashboard: leads por origem, status e importância'],
+        ['assets/img/crm-3.png', 'Página de leads em abas, com busca e filtros no cliente'],
+        ['assets/img/crm-4.png', 'Usuários, com papel e equipe de cada um'],
+        ['assets/img/crm-5.png', 'Equipes das várias unidades, com gerente e membros'],
+        ['assets/img/crm-6.png', 'Clientes vinculados aos leads, paginados']
+      ],
+      notaPrancha: 'Capturas do sistema rodando localmente, com a base de dados de exemplo — os nomes e contatos são fictícios.',
+      modelagem: [
         ['assets/img/abp3-4.png', 'Sequência: login e emissão do token JWT'],
         ['assets/img/abp3-2.png', 'Sequência: criação de lead, da validação de perfil ao log'],
         ['assets/img/abp3-1.png', 'Sequência: dashboard da equipe, com checagem de papel'],
         ['assets/img/abp3-3.png', 'Sequência: atualização de estágio da negociação']
       ],
-      notaPrancha: 'O repositório do projeto não publica capturas das telas — elas só existem com o sistema em execução. O que dá para mostrar aqui é a modelagem que sustenta o front que eu construí.',
       sobre: 'Plataforma para centralizar, gerenciar e analisar os leads comerciais da 1000 Valle Multimarcas, revendedora de veículos com múltiplas unidades. O sistema junta canais presenciais e digitais numa interface só e entrega visibilidade do funil para todos os níveis da hierarquia.',
       contribuicao: 'Atuei como desenvolvedor front-end da equipe DevFlow. Construí o dashboard analítico e seus gráficos, incluindo o ranking de atendentes, e reestruturei a página de leads em abas, com busca em tempo real e filtros resolvidos no cliente para a lista responder na hora. Fiz as telas de permissões, perfis e usuários — e, junto delas, o controle de acesso por capabilities no front, que decide o que cada um dos quatro perfis enxerga na interface. Também implementei a persistência das preferências de filtro e o fluxo de negociação com o modal de fechamento.',
       itens: [
@@ -422,6 +455,15 @@
       return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
+    function galeria(pranchas, extra) {
+      var html = '<div class="lupa__galeria' + extra + '">';
+      pranchas.forEach(function (p) {
+        html += '<figure><img src="' + esc(p[0]) + '" loading="lazy" alt="' + esc(p[1]) + '">';
+        html += '<figcaption>' + esc(p[1]) + '</figcaption></figure>';
+      });
+      return html + '</div>';
+    }
+
     function montar(d) {
       var html = '';
 
@@ -432,13 +474,9 @@
       html += '</div>';
 
       if (d.pranchas.length) {
-        html += '<div class="lupa__galeria' + (d.vertical ? ' lupa__galeria--alta' : '') +
-        (d.diagramas ? ' lupa__galeria--diagrama' : '') + '">';
-        d.pranchas.forEach(function (p) {
-          html += '<figure><img src="' + esc(p[0]) + '" loading="lazy" alt="' + esc(p[1]) + '">';
-          html += '<figcaption>' + esc(p[1]) + '</figcaption></figure>';
-        });
-        html += '</div>';
+        html += galeria(d.pranchas, (d.vertical ? ' lupa__galeria--alta' : '') +
+          (d.telas ? ' lupa__galeria--tela' : '') +
+          (d.diagramas ? ' lupa__galeria--diagrama' : ''));
         if (d.notaPrancha) html += '<p class="nota-prancha">' + esc(d.notaPrancha) + '</p>';
       }
 
@@ -454,6 +492,12 @@
       html += '<h4>Habitat técnico</h4><div class="etiquetas">';
       d.habitat.forEach(function (t) { html += '<span>' + esc(t) + '</span>'; });
       html += '</div></div></div>';
+
+      /* diagramas vêm depois do texto, como apêndice: quem abre a ficha vê o sistema primeiro */
+      if (d.modelagem) {
+        html += '<h4>Modelagem — diagramas de sequência</h4>';
+        html += galeria(d.modelagem, ' lupa__galeria--diagrama');
+      }
 
       if (d.links.length) {
         html += '<div class="lupa__pe">';

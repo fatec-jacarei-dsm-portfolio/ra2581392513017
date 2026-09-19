@@ -361,7 +361,7 @@
         <div class="registro__cabeca surge">
           <span class="registro__num">Registro III</span>
           <h2>A coleção</h2>
-          <p>6 espécimes · acadêmicos e pessoais</p>
+          <p>7 espécimes · acadêmicos e pessoais</p>
         </div>
 
         <div class="gaveta__topo surge">
@@ -372,7 +372,7 @@
           </div>
 
           <div class="gaveta__navega">
-            <span class="gaveta__conta" id="gaveta-conta" aria-live="polite">6 fichas</span>
+            <span class="gaveta__conta" id="gaveta-conta" aria-live="polite">7 fichas</span>
             <button class="seta" type="button" id="anterior" aria-label="Ficha anterior">
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
                 <path d="M10 3L5 8l5 5" stroke-linecap="round" stroke-linejoin="round" />
@@ -387,6 +387,59 @@
         </div>
 
         <div class="trilho" id="trilho" tabindex="0" role="region" aria-label="Gaveta de espécimes, navegável com as setas do teclado">
+
+          <!-- ---------- ESP-006 · Charco ---------- -->
+          <article class="ficha" data-familia="pessoal" data-esp="charco">
+            <svg class="ficha__alfinete" width="14" height="30" viewBox="0 0 14 30" aria-hidden="true">
+              <path d="M7 6v23" stroke="#8a8577" stroke-width="1.6" stroke-linecap="round" />
+              <circle cx="7" cy="5" r="5" fill="currentColor" />
+              <circle cx="5.4" cy="3.4" r="1.5" fill="#fff" fill-opacity=".5" />
+            </svg>
+            <div class="ficha__tombo">
+              <b>ESP-006</b><span>Família: pessoal</span>
+            </div>
+            <div class="ficha__prancha">
+              <img src="assets/img/charco-1.png" width="1180" height="740" loading="lazy"
+                alt="Tela do Charco: criaturas nadando na água turva à esquerda e, à direita, o painel com traços médios, gráfico da população, árvore da vida e diário.">
+            </div>
+            <div class="ficha__corpo">
+              <h3>Charco</h3>
+              <p class="ficha__binomial">Stagnum vitae emergentis</p>
+              <p class="ficha__resumo">
+                Um ecossistema onde a evolução roda ao vivo no navegador. Ninguém programou
+                predador, espécie, migração, aviso de veneno — nem o corpo dos bichos. Tudo
+                emerge de genoma, energia e morte, e o próprio programa registra o que
+                aconteceu num diário.
+              </p>
+              <div class="coletor">
+                <b>Observações do coletor</b>
+                <p>
+                  Projeto solo, em JavaScript puro, sem uma única biblioteca. O que define o
+                  trabalho não é o código, é a modelagem: cada vez que a simulação degenerava,
+                  a correção veio da biologia, não de ajuste de número. O metabolismo basal
+                  passou a seguir a <strong>lei de Kleiber</strong> e o gigantismo parou; a
+                  carniça entrou como rampa evolutiva e a carnivoria finalmente conseguiu
+                  atravessar o vale adaptativo da dieta intermediária; o mundo deixou de ser
+                  toroidal e virou cilindro, porque num toro o polo frio faz fronteira com o
+                  quente e nicho por latitude não existe. Registrei também o que
+                  não emergiu — o runaway de Fisher — com as três correções tentadas
+                  e a hipótese que sobrou, porque resultado negativo documentado vale mais
+                  que número perseguido até aparecer.
+                </p>
+              </div>
+              <dl class="ficha__dados">
+                <dt>Coleta</dt>
+                <dd>2.º sem. 2026 · projeto pessoal</dd>
+                <dt>Habitat</dt>
+                <dd>JavaScript · Canvas 2D · ES Modules · sem dependências</dd>
+              </dl>
+              <div class="ficha__pe">
+                <button class="btn" type="button" data-lupa="charco">Ficha completa</button>
+                <a class="btn btn--vazado" href="https://github.com/Raflael/charco" target="_blank"
+                  rel="noopener">Repositório</a>
+              </div>
+            </div>
+          </article>
 
           <!-- ---------- ESP-005 · Insetos vs Zumbis ---------- -->
           <article class="ficha" data-familia="pessoal" data-esp="insetos">
@@ -490,10 +543,9 @@
             <div class="ficha__tombo">
               <b>ESP-003</b><span>Família: acadêmico · ABP</span>
             </div>
-            <!-- o repositório do 3DSM não publica prints das telas: só sobem com o
-                 projeto em pé. A modelagem está na ficha completa. -->
-            <div class="ficha__vazia">
-              telas rodam só com o<br>projeto em pé — veja a<br>modelagem na ficha
+            <div class="ficha__prancha">
+              <img src="assets/img/crm-capa.png" width="1180" height="738" loading="lazy"
+                alt="Dashboard do DevFlow CRM: indicadores de total de leads, conversões e taxa de conversão, com o funil de vendas e o gráfico de evolução dos leads.">
             </div>
             <div class="ficha__corpo">
               <h3>DevFlow CRM</h3>
